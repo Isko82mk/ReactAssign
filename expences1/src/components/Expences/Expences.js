@@ -1,36 +1,54 @@
+import React, { useState } from 'react'
 import ExpenceItem from '../ExpenceItem/ExpenceItem'
+import ExpencesFilter from '../ExpencesFilter/ExpencesFilter'
 import './Expences.css'
 
-const expences = (props) => {
+const Expences = (props) => {
+
+    const [filteredYear, setFilteredYear] = useState('2020')
+
+    const filterChangeHandler = (value) => {
+        setFilteredYear(value)
+    }
+
+    const filteredExpenceByYear = props.expences.filter(element => {
+        return element.date.getFullYear().toString() === filteredYear
+    })
+
+
+    let expencesContent = <p style={{ color: 'white' }}>No expences found</p>
+
+    if (filteredExpenceByYear.length > 0) {
+        expencesContent = (
+            filteredExpenceByYear.map(ex => {
+                return <ExpenceItem
+                    key={ex.id}
+                    title={ex.title}
+                    amount={ex.amount}
+                    date={ex.date}
+                />
+            })
+        )
+    }
+
     return (
+        <div>
 
-        <div className={'expenses'}>
-            <ExpenceItem
-                title={props.expences[0].title}
-                amount={props.expences[0].amount}
-                date={props.expences[0].date}
-            />
+            <div className={'expenses'}>
 
-            <ExpenceItem
-                title={props.expences[1].title}
-                amount={props.expences[1].amount}
-                date={props.expences[1].date}
-            />
+                <ExpencesFilter
+                    onChangeFilter={filterChangeHandler}
+                    selected={filteredYear}
+                />
 
-            <ExpenceItem
-                title={props.expences[2].title}
-                amount={props.expences[2].amount}
-                date={props.expences[2].date}
-            />
+                {expencesContent}
 
-            <ExpenceItem
-                title={props.expences[3].title}
-                amount={props.expences[3].amount}
-                date={props.expences[3].date}
-            />
+
+            </div>
         </div>
+
 
     )
 }
 
-export default expences;
+export default Expences;
