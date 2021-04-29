@@ -44,36 +44,49 @@ const ExpenceForm = (props) => {
         setDate('');
     }
 
+
+
+
+
+
     return (
         <form onSubmit={submitHandler}>
 
-            <div className='new-expense__controls'>
+            <div className='new-expence'>
 
-                <div className='new-expense__control'>
-                    <label>Title</label>
-                    <input type='text'
-                        value={enteredTitle}
-                        onChange={titleChangeHandler} />
+                <div className='new-expense__controls' >
+
+                    <div className='new-expense__control'>
+                        <label>Title</label>
+                        <input type='text'
+                            value={enteredTitle}
+                            onChange={titleChangeHandler} />
+                    </div>
+
+                    <div className='new-expense__control'>
+                        <label>Amount</label>
+                        <input type='number'
+                            value={enteredAmount}
+                            onChange={amountChangeHandler} />
+                    </div>
+
+                    <div className='new-expense__control'>
+                        <label>Date</label>
+                        <input type='date' min='2019-01-01' max='2022-12-31'
+                            value={enterdDate}
+                            onChange={dateChangeHandler} />
+                    </div>
+
                 </div>
-
-                <div className='new-expense__control'>
-                    <label>Amount</label>
-                    <input type='number'
-                        value={enteredAmount}
-                        onChange={amountChangeHandler} />
-                </div>
-
-                <div className='new-expense__control'>
-                    <label>Date</label>
-                    <input type='date' min='2019-01-01' max='2022-12-31'
-                        value={enterdDate}
-                        onChange={dateChangeHandler} />
+                <div className='new-expense__action'>
+                    <button type='button' onClick={props.cancelButton}>Cancel</button>
+                    <button type='submit'>Add Expences</button>
                 </div>
 
             </div>
-            <div className='new-expense__action'>
-                <button type='submit'>Add Expences</button>
-            </div>
+
+
+
         </form>
     )
 }
